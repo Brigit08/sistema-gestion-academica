@@ -12,7 +12,7 @@ Sistema de gestión académica universitaria que permite:
 - Historial auditable de todo cambio en las notas.
 
 ## Hito 1
-Estructura principal del proyecto (clases y vistas, sin persistencia). Los archivos están vacíos a propósito: solo se definió la estructura.
+Estructura principal del proyecto (clases y vistas, sin persistencia). Los archivos están vacíos a propósito: Dsolo se definió la estructura.
 
 ## Estructura (patrón MVC)
 - `model/`: clases del dominio.
