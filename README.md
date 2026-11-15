@@ -20,7 +20,7 @@ Estructura principal del proyecto (clases y vistas, sin persistencia). Los archi
 - `controller/`: controladores que conectan vistas y modelo.
 - `service/`: reglas de negocio (prerrequisitos, horarios, cupos, auditoría).
 - `util/` y `exception/`: apoyo y excepciones propias.
-- `docs/`: documentación y diagramas.
+- `src/docs`: documentación y diagramas.
 
 ## Ramas
 - `main`: rama principal.
