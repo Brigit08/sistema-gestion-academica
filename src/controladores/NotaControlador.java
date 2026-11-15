@@ -29,4 +29,3 @@ public class NotaControlador {
         return "No se encontró la nota.";
     }
 }
-
