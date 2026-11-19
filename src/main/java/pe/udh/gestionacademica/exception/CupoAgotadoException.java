@@ -1,8 +1,15 @@
 package pe.udh.gestionacademica.exception;
 
-public class CupoAgotadoException extends Exception {
+public class CupoAgotadoException extends GestionAcademicaException {
 
-    public CupoAgotadoException(String mensaje) {
-        super(mensaje);
+    private final int idSeccion;
+
+    public CupoAgotadoException(int idSeccion) {
+        super("La seccion " + idSeccion + " ya no tiene cupos disponibles");
+        this.idSeccion = idSeccion;
+    }
+
+    public int getIdSeccion() {
+        return idSeccion;
     }
 }
