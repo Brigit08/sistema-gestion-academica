@@ -20,14 +20,21 @@ public class EstudianteControlador {
         if (codigo == null || codigo.isBlank() ||
             nombres == null || nombres.isBlank() ||
             apellidos == null || apellidos.isBlank() ||
-            dni == null || dni.isBlank() ||
-            correo == null || correo.isBlank() ||
-            idCarrera <= 0) {
+            dni == null || !dni.matches("\\d{8}") ||
+            correo == null || !correo.matches("^[\\w.-]+@[\\w.-]+\\.\\w{2,}$") ||
+            idCarrera <= 0 ||
+            estado == null || estado.isBlank()) {
             return false;
         }
 
         Estudiante estudiante = new Estudiante(
-            codigo, nombres, apellidos, dni, correo, idCarrera, estado
+            codigo.trim(),
+            nombres.trim(),
+            apellidos.trim(),
+            dni.trim(),
+            correo.trim(),
+            idCarrera,
+            estado.trim()
         );
 
         return servicio.registrar(estudiante);
@@ -38,6 +45,11 @@ public class EstudianteControlador {
     }
 
     public Estudiante buscarEstudiante(String codigo) {
-        return servicio.buscarPorCodigo(codigo);
+        if (codigo == null || codigo.isBlank()) {
+            return null;
+        }
+
+        return servicio.buscarPorCodigo(codigo.trim());
     }
 }
+
