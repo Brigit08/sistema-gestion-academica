@@ -1,3 +1,4 @@
+package controladores;
 
 import clases.Curso;
 import java.util.ArrayList;
