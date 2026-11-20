@@ -1,3 +1,7 @@
+package servicios;
+
+import clases.Curso;
+
 import java.util.ArrayList;
 import java.util.List;
 
