@@ -1,7 +1,6 @@
 package servicios;
 
 import clases.Curso;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +13,6 @@ public class CursoService {
     }
 
     public List<Curso> listar() {
-        return cursos;
+        return new ArrayList<>(cursos);
     }
 }
