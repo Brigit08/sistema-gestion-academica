@@ -1,3 +1,4 @@
+
 package clases;
 
 public class Estudiante {
@@ -28,4 +29,11 @@ public class Estudiante {
     public String getCorreo() { return correo; }
     public int getIdCarrera() { return idCarrera; }
     public String getEstado() { return estado; }
+
+    public void setNombres(String nombres) { this.nombres = nombres; }
+    public void setApellidos(String apellidos) { this.apellidos = apellidos; }
+    public void setDni(String dni) { this.dni = dni; }
+    public void setCorreo(String correo) { this.correo = correo; }
+    public void setIdCarrera(int idCarrera) { this.idCarrera = idCarrera; }
+    public void setEstado(String estado) { this.estado = estado; }
 }
