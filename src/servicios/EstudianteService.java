@@ -40,4 +40,38 @@ public class EstudianteService {
         }
         return null;
     }
+
+    public boolean actualizar(Estudiante actualizado) {
+        Estudiante actual = buscarPorCodigo(actualizado.getCodigo());
+
+        if (actual == null) {
+            return false;
+        }
+
+        Estudiante duplicado = buscarPorDni(actualizado.getDni());
+
+        if (duplicado != null && duplicado != actual) {
+            return false;
+        }
+
+        actual.setNombres(actualizado.getNombres());
+        actual.setApellidos(actualizado.getApellidos());
+        actual.setDni(actualizado.getDni());
+        actual.setCorreo(actualizado.getCorreo());
+        actual.setIdCarrera(actualizado.getIdCarrera());
+        actual.setEstado(actualizado.getEstado());
+
+        return true;
+    }
+
+    public boolean desactivar(String codigo) {
+        Estudiante estudiante = buscarPorCodigo(codigo);
+
+        if (estudiante == null) {
+            return false;
+        }
+
+        estudiante.setEstado("Inactivo");
+        return true;
+    }
 }

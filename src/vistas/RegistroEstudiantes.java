@@ -19,8 +19,8 @@ public class RegistroEstudiantes extends JFrame {
     public RegistroEstudiantes(EstudianteControlador controlador) {
         this.controlador = controlador;
 
-        setTitle("Registro de Estudiantes");
-        setSize(850, 550);
+        setTitle("Gestión de Estudiantes");
+        setSize(900, 550);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -55,11 +55,15 @@ public class RegistroEstudiantes extends JFrame {
 
         JButton btnRegistrar = new JButton("Registrar");
         JButton btnBuscar = new JButton("Buscar");
+        JButton btnActualizar = new JButton("Actualizar");
+        JButton btnDesactivar = new JButton("Desactivar");
         JButton btnListar = new JButton("Listar");
         JButton btnLimpiar = new JButton("Limpiar");
 
         formulario.add(btnRegistrar);
         formulario.add(btnBuscar);
+        formulario.add(btnActualizar);
+        formulario.add(btnDesactivar);
 
         String[] columnas = {
             "Código", "Nombres", "Apellidos", "DNI",
@@ -79,6 +83,8 @@ public class RegistroEstudiantes extends JFrame {
 
         btnRegistrar.addActionListener(e -> registrar());
         btnBuscar.addActionListener(e -> buscar());
+        btnActualizar.addActionListener(e -> actualizar());
+        btnDesactivar.addActionListener(e -> desactivar());
         btnListar.addActionListener(e -> listar());
         btnLimpiar.addActionListener(e -> limpiar());
     }
@@ -124,6 +130,54 @@ public class RegistroEstudiantes extends JFrame {
         cbEstado.setSelectedItem(estudiante.getEstado());
     }
 
+    private void actualizar() {
+        try {
+            boolean actualizado = controlador.actualizarEstudiante(
+                txtCodigo.getText().trim(),
+                txtNombres.getText().trim(),
+                txtApellidos.getText().trim(),
+                txtDni.getText().trim(),
+                txtCorreo.getText().trim(),
+                Integer.parseInt(txtCarrera.getText().trim()),
+                cbEstado.getSelectedItem().toString()
+            );
+
+            if (actualizado) {
+                JOptionPane.showMessageDialog(this, "Estudiante actualizado correctamente");
+                listar();
+                limpiar();
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudo actualizar. Verifica los datos");
+            }
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "El ID de carrera debe ser numérico");
+        }
+    }
+
+    private void desactivar() {
+        int confirmacion = JOptionPane.showConfirmDialog(
+            this,
+            "¿Deseas desactivar este estudiante?",
+            "Confirmar desactivación",
+            JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            boolean resultado = controlador.desactivarEstudiante(
+                txtCodigo.getText().trim()
+            );
+
+            if (resultado) {
+                JOptionPane.showMessageDialog(this, "Estudiante desactivado correctamente");
+                listar();
+                limpiar();
+            } else {
+                JOptionPane.showMessageDialog(this, "Estudiante no encontrado");
+            }
+        }
+    }
+
     private void listar() {
         modelo.setRowCount(0);
 
@@ -150,3 +204,4 @@ public class RegistroEstudiantes extends JFrame {
         cbEstado.setSelectedIndex(0);
     }
 }
+
