@@ -46,7 +46,7 @@ public class Inicio extends JFrame {
         );
 
         asistencia.addActionListener(e ->
-            new RegistroAsistencia().setVisible(true)
+            new VentanaRegistroAsistencia().setVisible(true)
         );
 
         JPanel botones = new JPanel(new GridLayout(5, 1, 12, 12));

@@ -1,91 +1,54 @@
 package vistas;
 
-import controladores.AsistenciaControlador;
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.awt.*;
+import clases.Estudiante;
 
-public class RegistroAsistencia extends JFrame {
+public class RegistroAsistencia {
 
-    private AsistenciaControlador controlador = new AsistenciaControlador();
-    private JTextField estudiante, seccion, fecha, estado, buscar;
-    private DefaultTableModel modelo;
+    private int id;
+    private Estudiante estudiante;
+    private String fecha;
+    private String estado;
 
     public RegistroAsistencia() {
-        setTitle("Registro de Asistencia");
-        setSize(750, 450);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-        JPanel formulario = new JPanel(new GridLayout(2, 4, 8, 8));
-
-        estudiante = new JTextField();
-        seccion = new JTextField();
-        fecha = new JTextField();
-        estado = new JTextField();
-        buscar = new JTextField();
-
-        formulario.add(new JLabel("Código estudiante:"));
-        formulario.add(estudiante);
-        formulario.add(new JLabel("ID sección:"));
-        formulario.add(seccion);
-        formulario.add(new JLabel("Fecha:"));
-        formulario.add(fecha);
-        formulario.add(new JLabel("Estado:"));
-        formulario.add(estado);
-
-        JButton registrar = new JButton("Registrar");
-        JButton listar = new JButton("Listar");
-        JButton consultar = new JButton("Buscar estudiante");
-
-        JPanel botones = new JPanel();
-        botones.add(registrar);
-        botones.add(listar);
-        botones.add(new JLabel("Código:"));
-        botones.add(buscar);
-        botones.add(consultar);
-
-        modelo = new DefaultTableModel(
-            new String[]{"Código estudiante", "ID sección", "Fecha", "Estado"}, 0
-        );
-
-        JTable tabla = new JTable(modelo);
-
-        registrar.addActionListener(e -> registrar());
-        listar.addActionListener(e -> listar());
-        consultar.addActionListener(e -> buscar());
-
-        setLayout(new BorderLayout(10, 10));
-        add(formulario, BorderLayout.NORTH);
-        add(new JScrollPane(tabla), BorderLayout.CENTER);
-        add(botones, BorderLayout.SOUTH);
     }
 
-    private void registrar() {
-        controlador.registrarAsistencia(
-            estudiante.getText(),
-            Integer.parseInt(seccion.getText()),
-            fecha.getText(),
-            estado.getText()
-        );
-
-        JOptionPane.showMessageDialog(this, "Asistencia registrada");
-        listar();
+    public RegistroAsistencia(int id, Estudiante estudiante, String fecha, String estado) {
+        this.id = id;
+        this.estudiante = estudiante;
+        this.fecha = fecha;
+        this.estado = estado;
     }
 
-    private void listar() {
-        modelo.setRowCount(0);
-
-        for (String[] a : controlador.listarAsistencias()) {
-            modelo.addRow(a);
-        }
+    public int getId() {
+        return id;
     }
 
-    private void buscar() {
-        modelo.setRowCount(0);
-
-        for (String[] a : controlador.buscarPorEstudiante(buscar.getText())) {
-            modelo.addRow(a);
-        }
+    public void setId(int id) {
+        this.id = id;
     }
+
+    public Estudiante getEstudiante() {
+        return estudiante;
+    }
+
+    public void setEstudiante(Estudiante estudiante) {
+        this.estudiante = estudiante;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
 }

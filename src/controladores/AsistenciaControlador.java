@@ -1,28 +1,68 @@
 package controladores;
+
+import vistas.RegistroAsistencia;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class AsistenciaControlador {
 
-    private List<String[]> asistencias = new ArrayList<>();
+    private final List<RegistroAsistencia> registros;
 
-    public String registrarAsistencia(String codigoEstudiante, int idSeccion,
-                                      String fecha, String estado) {
-        asistencias.add(new String[]{codigoEstudiante, String.valueOf(idSeccion), fecha, estado});
-        return "Asistencia registrada correctamente.";
+    public AsistenciaControlador() {
+        this.registros = new ArrayList<>();
     }
 
-    public List<String[]> listarAsistencias() {
-        return asistencias;
+    public boolean registrarAsistencia(RegistroAsistencia registro) {
+        if (registro == null) {
+            return false;
+        }
+        if (buscarPorId(registro.getId()) != null) {
+            return false;
+        }
+        return registros.add(registro);
     }
 
-    public List<String[]> buscarPorEstudiante(String codigoEstudiante) {
-        List<String[]> resultado = new ArrayList<>();
-        for (String[] asistencia : asistencias) {
-            if (asistencia[0].equals(codigoEstudiante)) {
-                resultado.add(asistencia);
+    public List<RegistroAsistencia> listarAsistencias() {
+        return new ArrayList<>(registros);
+    }
+
+    public RegistroAsistencia buscarPorId(int id) {
+        for (RegistroAsistencia r : registros) {
+            if (r.getId() == id) {
+                return r;
             }
         }
-        return resultado;
+        return null;
+    }
+
+    public List<RegistroAsistencia> buscarPorFecha(String fecha) {
+        List<RegistroAsistencia> encontrados = new ArrayList<>();
+        if (fecha == null) {
+            return encontrados;
+        }
+        for (RegistroAsistencia r : registros) {
+            if (fecha.equalsIgnoreCase(r.getFecha())) {
+                encontrados.add(r);
+            }
+        }
+        return encontrados;
+    }
+
+    public boolean actualizarEstado(int id, String nuevoEstado) {
+        RegistroAsistencia registro = buscarPorId(id);
+        if (registro == null || nuevoEstado == null || nuevoEstado.isBlank()) {
+            return false;
+        }
+        registro.setEstado(nuevoEstado);
+        return true;
+    }
+
+    public boolean eliminarAsistencia(int id) {
+        RegistroAsistencia registro = buscarPorId(id);
+        if (registro == null) {
+            return false;
+        }
+        return registros.remove(registro);
     }
 }
